@@ -1,0 +1,5 @@
+singleton Theme 1.0 Theme.qml
+CircularProgress 1.0 CircularProgress.qml
+ThemedRectangle 1.0 ThemedRectangle.qml
+ThemedSlider 1.0 ThemedSlider.qml
+ThemedText 1.0 ThemedText.qml

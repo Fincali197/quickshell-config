@@ -6,6 +6,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Controls.Basic
+import Quickshell.Widgets
 // import Quickshell.Services.Mpris
 
 ColumnLayout {
@@ -13,30 +14,46 @@ ColumnLayout {
 
     spacing: 0
 
+	function formatTime(seconds) {
+		var mins = Math.floor(seconds / 60);
+		var secs = seconds % 60;
+
+		return Math.floor(mins).toString().padStart(2, '0') + ":" +
+			   Math.floor(secs).toString().padStart(2, '0');
+	}
+
     RowLayout {
         spacing: 0
 
         Rectangle {
             id: musicIconContainer
 
-            implicitHeight: Theme.dockWidth/2
+            property int imagePadding: Theme.dockWidth/12
+
+            implicitHeight: Theme.dockWidth/2 - imagePadding
             implicitWidth: Theme.dockWidth/2
 
             visible: Music.getArtUrl(Music.selectedPlayer)
 
             color: "transparent"
 
-            property int imagePadding: Theme.dockWidth/12
-
-            Image {
-                id: trackIcon
-                mipmap: true
-                fillMode: Image.PreserveAspectFit
-                width: Math.round(Theme.dockWidth/2 - 2 * musicIconContainer.imagePadding)
-                height: Math.round(Theme.dockWidth/2 - 2 * musicIconContainer.imagePadding)
-                anchors.centerIn: parent
-                source: (Music.getArtUrl(Music.selectedPlayer) != "") ? Music.selectedPlayer.trackArtUrl : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%2Fid%2FOIP.7lun1vSa8eQq62seye6SaQHaIZ%3Fpid%3DApi&f=1&ipt=050842dd82a42c3defd1db8f4e63214b56f4c91ee32a70129ac267c08bef0fc9&ipo=images"
-            }
+			ClippingRectangle {
+				id: iconTrimmer
+				width: trackIcon.paintedWidth
+				height: trackIcon.paintedHeight
+				radius: Theme.borderRadius
+				clip: true
+				color: "transparent"
+				anchors.centerIn: parent
+				Image {
+					id: trackIcon
+					fillMode: Image.PreserveAspectFit
+					anchors.centerIn: parent
+					width: Math.round(Theme.dockWidth/2 - 2 * musicIconContainer.imagePadding)
+					height: Math.round(Theme.dockWidth/2 - 2 * musicIconContainer.imagePadding)
+					source: (Music.getArtUrl(Music.selectedPlayer) != "") ? Music.getArtUrl(Music.selectedPlayer) : ""
+				}
+			}
         }
 
         ColumnLayout {
@@ -45,13 +62,42 @@ ColumnLayout {
 
             // Player selector
             Rectangle {
-                Layout.preferredHeight: playerPicker.implicitHeight
+                Layout.preferredHeight: playerPicker.implicitHeight + Theme.dockWidth/20
                 Layout.fillWidth: true
-                ComboBox {
-                    id: playerPicker
-                    model: Music.players.values
-                    textRole: "desktopEntry"
-                }
+				color: "transparent"
+				ComboBox {
+					id: playerPicker
+					anchors.centerIn: parent
+					model: Music.players.values
+					textRole: "identity"
+					delegate: ItemDelegate {
+						contentItem: ThemedText {
+							text: modelData.identity
+						}
+					}
+					background: ThemedRectangle {
+						color: Theme.secondaryBackgroundColor
+						implicitWidth: Theme.dockWidth*2/5
+						implicitHeight: Theme.fontSize*2.5
+						border.width: 0
+					}
+					contentItem: ThemedText {
+						text: playerPicker.displayText
+						elide: Text.ElideRight
+						leftPadding: Theme.textPadding/2
+						rightPadding: Theme.textPadding/2
+						verticalAlignment: Text.AlignVCenter
+					}
+					indicator: ThemedText {
+						text: ""
+						anchors {
+							right: parent.right
+							rightMargin: Theme.textPadding/2
+							verticalCenter: parent.verticalCenter
+						}
+						verticalAlignment: Text.AlignVCenter
+					}
+			   	}
             }
 
             // Player volume slider
@@ -61,16 +107,30 @@ ColumnLayout {
                 color: "transparent"
 
 
+				ThemedText {
+					text: playerVolume.value > 0 ? (playerVolume.value > 0.5 ? "" : "") : ""
+					anchors.right: playerVolume.left
+					anchors.rightMargin: Theme.textPadding/2
+					anchors.verticalCenter: parent.verticalCenter
+				}
                 ThemedSlider {
                     id: playerVolume
                     anchors.centerIn: parent
 
-                    value: Music.selectedPlayer.volume
+                    value: Math.cbrt(Music.selectedPlayer.volume)
+					from: 0.0
+					to: 1.0
 
                     sliderWidth: Theme.dockWidth/3
 
-                    onMoved: {Music.selectedPlayer.volume = value}
+                    onMoved: {Music.selectedPlayer.volume = value*value*value}
                 }
+				ThemedText {
+					text: Math.floor(playerVolume.value*100) + "%"
+					anchors.left: playerVolume.right
+					anchors.leftMargin: Theme.textPadding/2
+					anchors.verticalCenter: parent.verticalCenter
+				}
             }
 
             // Player controls
@@ -95,13 +155,15 @@ ColumnLayout {
                         text: Music.selectedPlayer?.isPlaying ? "" : ""
                         font.pointSize: Theme.dockWidth/10
                     }
+					TapHandler {
+						onTapped: Music.playPause(Music.selectedPlayer)
+					}
                 }
                 Rectangle {
                     id: playerNext
 
                     anchors.left: playerPause.right
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.leftMargin: Theme.dockWidth/50
 
                     implicitWidth: playerNextIcon.implicitWidth
                     implicitHeight: playerNextIcon.implicitHeight
@@ -113,13 +175,16 @@ ColumnLayout {
                         text: "󰒭"
                         font.pointSize: Theme.dockWidth/10
                     }
+
+					TapHandler {
+						onTapped: Music.next(Music.selectedPlayer)
+					}
                 }
                 Rectangle {
                     id: playerPrevious
 
                     anchors.right: playerPause.left
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.rightMargin: Theme.dockWidth/50
 
                     implicitWidth: playerPreviousIcon.implicitWidth
                     implicitHeight: playerPreviousIcon.implicitHeight
@@ -131,6 +196,10 @@ ColumnLayout {
                         text: "󰒮"
                         font.pointSize: Theme.dockWidth/10
                     }
+
+					TapHandler {
+						onTapped: Music.previous(Music.selectedPlayer)
+					}
                 }
             }
         }
@@ -153,16 +222,34 @@ ColumnLayout {
         Layout.preferredHeight: trackName.implicitHeight
         Layout.fillWidth: true
     }
-    Rectangle {
+
+    RowLayout {
+        Layout.preferredHeight: Theme.dockWidth/50 * 3
+        Layout.preferredWidth: Theme.dockWidth
+
+		Item { Layout.preferredWidth: Theme.textPadding }
+
+		ThemedText {
+			id: positionText
+			text: root.formatTime(Music.selectedPlayer.position)
+			Layout.preferredWidth: font.pointSize * 3.5
+		}
+
         ThemedSlider {
-            anchors.centerIn: parent
+			Layout.fillWidth: true
+			Layout.fillHeight: true
             from: 0
             to: Music.selectedPlayer.length
             value: Music.selectedPlayer.position
             sliderWidth: Theme.dockWidth - 40
+			onMoved: Music.setPosition(Music.selectedPlayer, value)
+			roundedHandle: true
         }
-        color: "transparent"
-        Layout.preferredHeight: Theme.height
-        Layout.fillWidth: true
+
+		ThemedText {
+			text: root.formatTime(Music.selectedPlayer.length)
+		}
+
+		Item { Layout.preferredWidth: Theme.textPadding }
     }
 }

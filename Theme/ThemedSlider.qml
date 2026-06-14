@@ -10,6 +10,8 @@ Slider {
 
     property int sliderWidth
 
+	property bool roundedHandle: false
+
     background: Rectangle {
         x: control.leftPadding
         y: control.topPadding + control.availableHeight / 2 - height / 2
@@ -31,9 +33,13 @@ Slider {
     handle: Rectangle {
         x: control.leftPadding + control.visualPosition * (control.availableWidth - width)
         y: control.topPadding + control.availableHeight / 2 - height / 2
-        implicitWidth: 5
-        implicitHeight: 20
-        radius: 2
-        color: Theme.secondaryColor
+        implicitWidth: roundedHandle ? 15 : 5
+        implicitHeight: roundedHandle ? 15 : 20
+        radius: roundedHandle ? 15 : 2
+        color: roundedHandle ? Theme.backgroundColor : Theme.secondaryColor
+		border {
+			width: roundedHandle ? 1 : 0
+			color: Theme.borderColor
+		}
     }
 }

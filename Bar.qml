@@ -5,7 +5,6 @@ import "BarWidgets"
 import "Panel"
 import Quickshell
 import QtQuick
-import Quickshell.Widgets
 import QtQuick.Layouts
 
 PanelWindow {
@@ -114,9 +113,12 @@ PanelWindow {
 
             color: "transparent"
             Layout.preferredWidth: Theme.dockWidth
+            implicitWidth: Theme.dockWidth
+            implicitHeight: Theme.height
             Layout.fillHeight: true
         }
         SidePanel{
+            id: sidePanel
             margins.left: dockContainer.x + Theme.leftMargin
         }
     }

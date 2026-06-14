@@ -19,17 +19,39 @@ Singleton {
     function getArtUrl(player: MprisPlayer): string {
         if (!player)
             return "";
+
         if (player.trackArtUrl)
             return player.trackArtUrl;
 
         const url = player.metadata["xesam:url"] ?? "";
-        if (url.startsWith("https://www.youtube.com/watch")) {
-            // Fallback for youtube
+        if (
+            url.startsWith("https://www.youtube.com/watch") ||
+            url.startsWith("https://music.youtube.com/watch")
+        ) {
             const id = url.match(/[?&]v=([\w-]{11})/)?.[1];
             return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : "";
         }
+
         return "";
     }
+
+	function setPosition(player: MprisPlayer, position: real) {
+		if (player.positionSupported) {
+			player.position = position
+		}
+	}
+
+	function playPause(player: MprisPlayer) {
+		player.togglePlaying()
+	}
+
+	function next(player: MprisPlayer) {
+		player.next()
+	}
+
+	function previous(player: MprisPlayer) {
+		player.previous()
+	}
 
     PersistentProperties {
         id: props

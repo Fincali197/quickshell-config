@@ -12,11 +12,15 @@ Singleton {
     property real memoryFree: 0
     property real memoryUsage: 0
     property real cpuUsage: 0
+    property real cpuMaxFreq: Number(fileCpuFreqMax.text()) ?? 0
+    property real cpuFreq: 0
 
     property var previousCpuStats: null
 
     FileView { id: fileMemInfo; path: "/proc/meminfo" }
     FileView { id: fileStat; path: "/proc/stat" }
+    FileView { id: fileCpuFreqLive; path: "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq" }
+    FileView { id: fileCpuFreqMax; path: "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq" }
 
     Timer {
         interval: 1000
@@ -26,12 +30,15 @@ Singleton {
         onTriggered: {
             fileMemInfo.reload()
             fileStat.reload()
+            fileCpuFreqLive.reload()
 
             const textMemInfo = fileMemInfo.text()
-            
             memoryTotal = Number(textMemInfo.match(/MemTotal: *(\d+)/)?.[1] ?? 1)
             memoryFree = Number(textMemInfo.match(/MemAvailable: *(\d+)/)?.[1] ?? 0)
-            memoryUsage = Math.round((1 - memoryFree / memoryTotal) * 1000)/1000
+            memoryUsage = 1 - memoryFree / memoryTotal
+
+            const textCpuFreqLive = fileCpuFreqLive.text()
+            cpuFreq = Number(textCpuFreqLive)
 
             const textStat = fileStat.text()
             const cpuLine = textStat.match(/^cpu\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/)

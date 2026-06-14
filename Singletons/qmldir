@@ -1,0 +1,7 @@
+singleton Audio 1.0 Audio.qml
+singleton Music 1.0 Music.qml
+singleton ResourceUsage 1.0 ResourceUsage.qml
+singleton Splash 1.0 Splash.qml
+singleton HyprlandXKB 1.0 HyprlandXKB.qml
+singleton SideHandler 1.0 SideHandler.qml
+singleton Time 1.0 Time.qml

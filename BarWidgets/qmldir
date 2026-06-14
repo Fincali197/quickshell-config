@@ -1,0 +1,8 @@
+CalendarWidget 1.0 CalendarWidget.qml
+ClockWidget 1.0 ClockWidget.qml
+CPUWidget 1.0 CPUWidget.qml
+Dock 1.0 Dock.qml
+KeyboardWidget 1.0 KeyboardWidget.qml
+RAMWidget 1.0 RAMWidget.qml
+VolumeWidget 1.0 VolumeWidget.qml
+WorkspaceWidget 1.0 WorkspaceWidget.qml
