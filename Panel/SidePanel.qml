@@ -43,4 +43,22 @@ PanelWindow {
             source: SideHandler.panelOpen ? "PanelContent.qml" : "../BarWidgets/Dock.qml"
         }
     }
+
+    Rectangle {
+        color: "transparent"
+        TapHandler {
+            onTapped: {
+                SideHandler.panelOpen = !SideHandler.panelOpen
+            }
+        }
+        implicitHeight: Theme.height
+        implicitWidth: Theme.height
+		anchors.left: mainContainer.left
+		anchors.bottom: mainContainer.bottom
+
+        ThemedText {
+            anchors.centerIn: parent
+            text: SideHandler.panelOpen ? "" : ""
+        }
+    }
 }
