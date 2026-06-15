@@ -12,6 +12,7 @@ Singleton {
 
     PersistentProperties {
         id: persist
+		reloadableId: "sideHandler"
         property bool panelOpen: false
     }
 

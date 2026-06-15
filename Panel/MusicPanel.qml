@@ -7,7 +7,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Controls.Basic
 import Quickshell.Widgets
-// import Quickshell.Services.Mpris
+import Quickshell.Services.Mpris
 
 ColumnLayout {
     id: root
@@ -30,7 +30,7 @@ ColumnLayout {
 
             property int imagePadding: Theme.dockWidth/12
 
-            implicitHeight: Theme.dockWidth/2 - imagePadding
+            implicitHeight: trackIcon.paintedHeight + imagePadding
             implicitWidth: Theme.dockWidth/2
 
             visible: Music.getArtUrl(Music.selectedPlayer)
@@ -51,7 +51,7 @@ ColumnLayout {
 					anchors.centerIn: parent
 					width: Math.round(Theme.dockWidth/2 - 2 * musicIconContainer.imagePadding)
 					height: Math.round(Theme.dockWidth/2 - 2 * musicIconContainer.imagePadding)
-					source: (Music.getArtUrl(Music.selectedPlayer) != "") ? Music.getArtUrl(Music.selectedPlayer) : ""
+					source: Music.getArtUrl(Music.selectedPlayer)
 				}
 			}
         }
@@ -121,7 +121,7 @@ ColumnLayout {
 					from: 0.0
 					to: 1.0
 
-                    sliderWidth: Theme.dockWidth/3
+                    sliderWidth: Theme.dockWidth/4
 
                     onMoved: {Music.selectedPlayer.volume = value*value*value}
                 }
@@ -138,6 +138,7 @@ ColumnLayout {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 color: "transparent"
+				implicitHeight: playerPause.implicitHeight
 
                 Rectangle {
                     id: playerPause
@@ -245,6 +246,12 @@ ColumnLayout {
 			onMoved: Music.setPosition(Music.selectedPlayer, value)
 			roundedHandle: true
         }
+		Timer {
+		  running: Music.selectedPlayer.playbackState == MprisPlaybackState.Playing
+		  interval: 1000
+		  repeat: true
+		  onTriggered: Music.selectedPlayer.positionChanged()
+		}
 
 		ThemedText {
 			text: root.formatTime(Music.selectedPlayer.length)

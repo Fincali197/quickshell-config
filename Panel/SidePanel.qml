@@ -2,7 +2,6 @@
 import "../Theme"
 import "../Singletons"
 import QtQuick
-import QtQuick.Layouts
 import Quickshell
 
 PanelWindow {

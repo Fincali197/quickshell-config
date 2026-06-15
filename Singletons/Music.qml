@@ -16,12 +16,43 @@ Singleton {
 
     property bool playerExists: players?.values.length == 0 ? false : true
 
+	function key(playerName: string, trackTitle: string): string {
+		const playerNameConst = playerName
+		const trackTitleConst = trackTitle
+		return playerNameConst + "|" + trackTitleConst
+	}
+	
+    PersistentProperties {
+        id: props
+		reloadableId: "musicCache"
+
+        property MprisPlayer manualPlayer
+		property var trackArtUrlList
+		property var lengthList
+
+		onLoaded: {
+			if (trackArtUrlList == null) {
+				trackArtUrlList = ({})
+			}
+			if (lengthList == null) {
+				lengthList = ({})
+			}
+			// console.log(JSON.stringify(trackArtUrlList))
+		}
+
+    }
+	property alias trackArtUrlList: props.trackArtUrlList
+	property alias lengthList: props.lengthList
+
     function getArtUrl(player: MprisPlayer): string {
         if (!player)
             return "";
 
-        if (player.trackArtUrl)
-            return player.trackArtUrl;
+		if (root.trackArtUrlList) {
+			if (root.trackArtUrlList[root.key(player.dbusName, player.trackTitle)]) {
+				return root.trackArtUrlList[root.key(player.dbusName, player.trackTitle)]
+			}
+		}
 
         const url = player.metadata["xesam:url"] ?? "";
         if (
@@ -52,10 +83,26 @@ Singleton {
 	function previous(player: MprisPlayer) {
 		player.previous()
 	}
+	Instantiator {
+		model: root.players
 
-    PersistentProperties {
-        id: props
+		delegateModelAccess: DelegateModel.ReadOnly
 
-        property MprisPlayer manualPlayer
-    }
+		delegate: Connections {
+			target: modelData
+
+			function onTrackArtUrlChanged() {
+
+				const trackArtUrl = modelData.trackArtUrl
+
+				if (!trackArtUrl) {
+					return;
+				}
+
+				const key = root.key(modelData.dbusName, modelData.trackTitle)
+				root.trackArtUrlList[key] = trackArtUrl
+				// console.log(JSON.stringify(root.trackArtUrlList))
+			}
+		}
+	}
 }

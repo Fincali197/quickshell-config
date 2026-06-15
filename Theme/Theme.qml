@@ -28,5 +28,7 @@ Singleton {
     readonly property int borderWidth: 1
     readonly property int borderRadius: 10
 
+	readonly property int panelBorderWidth: 3
+
     property int dockWidth: 500
 }
