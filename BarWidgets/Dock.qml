@@ -9,22 +9,25 @@ RowLayout {
     spacing: 0
     width: Theme.dockWidth
     implicitHeight: Theme.height
-    Rectangle {
-        color: "transparent"
-        TapHandler {
-            onTapped: {
-                SideHandler.panelOpen = !SideHandler.panelOpen
-            }
-        }
-        implicitHeight: Theme.height
-        Layout.preferredWidth: 30
-        Layout.fillHeight: true
-
-        ThemedText {
-            anchors.centerIn: parent
-            text: SideHandler.panelOpen ? "" : ""
-        }
-    }
+    // Rectangle {
+    //     color: "transparent"
+    //     TapHandler {
+    //         onTapped: {
+    //             SideHandler.panelOpen = !SideHandler.panelOpen
+    //         }
+    //     }
+    //     implicitHeight: Theme.height
+    //     Layout.preferredWidth: 30
+    //     Layout.fillHeight: true
+    //
+    //     ThemedText {
+    //         anchors.centerIn: parent
+    //         text: SideHandler.panelOpen ? "" : ""
+    //     }
+    // }
+	Item {
+		Layout.preferredWidth: 30
+	}
 
     Rectangle {
         color: "transparent"
