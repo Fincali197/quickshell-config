@@ -45,6 +45,7 @@ RowLayout {
             width: Math.min(parent.width, Theme.dockWidth*10/12)
 
             horizontalAlignment: Text.AlignHCenter
+			verticalAlignment: Text.AlignVCenter
         }
     }
 

@@ -83,6 +83,11 @@ Singleton {
 	function previous(player: MprisPlayer) {
 		player.previous()
 	}
+
+	function stop(player: MprisPlayer) {
+		player.stop()
+	}
+
 	Instantiator {
 		model: root.players
 

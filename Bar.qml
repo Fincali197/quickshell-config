@@ -21,6 +21,20 @@ PanelWindow {
         right: true
         top: false
     }
+
+	mask: Region {
+		width: root.width
+		height: root.height
+
+		Region {
+			x: sidePanel.margins.left
+			y: 0
+			width: sidePanel.width
+			height: root.height
+			intersection: Intersection.Subtract
+		}
+	}
+
     RowLayout {
         
         id: rowLayout

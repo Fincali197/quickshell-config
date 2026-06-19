@@ -47,9 +47,10 @@ ColumnLayout {
 				anchors.centerIn: parent
 				Image {
 					id: trackIcon
+					mipmap: true
 					fillMode: Image.PreserveAspectFit
 					anchors.centerIn: parent
-					width: Math.round(Theme.dockWidth/2 - 2 * musicIconContainer.imagePadding)
+					width: Math.round(Theme.dockWidth/2 - musicIconContainer.imagePadding)
 					height: Math.round(Theme.dockWidth/2 - 2 * musicIconContainer.imagePadding)
 					source: Music.getArtUrl(Music.selectedPlayer)
 				}
@@ -166,7 +167,7 @@ ColumnLayout {
                     anchors.left: playerPause.right
                     anchors.verticalCenter: parent.verticalCenter
 
-                    implicitWidth: playerNextIcon.implicitWidth
+                    implicitWidth: playerNextIcon.implicitWidth //- Theme.dockWidth/20
                     implicitHeight: playerNextIcon.implicitHeight
 
                     color: "transparent"
@@ -175,6 +176,7 @@ ColumnLayout {
                         id: playerNextIcon
                         text: "󰒭"
                         font.pointSize: Theme.dockWidth/10
+						anchors.centerIn: parent
                     }
 
 					TapHandler {
@@ -187,7 +189,7 @@ ColumnLayout {
                     anchors.right: playerPause.left
                     anchors.verticalCenter: parent.verticalCenter
 
-                    implicitWidth: playerPreviousIcon.implicitWidth
+                    implicitWidth: playerPreviousIcon.implicitWidth //- Theme.dockWidth/20
                     implicitHeight: playerPreviousIcon.implicitHeight
 
                     color: "transparent"
@@ -196,12 +198,55 @@ ColumnLayout {
                         id: playerPreviousIcon
                         text: "󰒮"
                         font.pointSize: Theme.dockWidth/10
+						anchors.centerIn: parent
                     }
 
 					TapHandler {
 						onTapped: Music.previous(Music.selectedPlayer)
 					}
                 }
+					//            Rectangle {
+					//                id: playerStop
+					//
+					// anchors.left: playerNext.right
+					// anchors.leftMargin: Theme.textPadding/2
+					// anchors.verticalCenter: parent.verticalCenter
+					//
+					//                implicitWidth: playerStopIcon.implicitWidth
+					//                implicitHeight: playerStopIcon.implicitHeight
+					//
+					//                color: "transparent"
+					//
+					//                ThemedText {
+					//                    id: playerStopIcon
+					// 	text: ""
+					//                    font.pointSize: Theme.dockWidth/20
+					//                }
+					// TapHandler {
+					// 	onTapped: Music.stop(Music.selectedPlayer)
+					// }
+					//            }
+					//            Rectangle {
+					//                id: playerSpeed
+					//
+					// anchors.right: playerPrevious.left
+					// anchors.rightMargin: Theme.textPadding/2
+					// anchors.verticalCenter: parent.verticalCenter
+					//
+					//                implicitWidth: playerSpeedIcon.implicitWidth
+					//                implicitHeight: playerSpeedIcon.implicitHeight
+					//
+					//                color: "transparent"
+					//
+					//                ThemedText {
+					//                    id: playerSpeedIcon
+					// 	text: Music.selectedPlayer.rate.toString() + "x"
+					//                    font.pointSize: Theme.dockWidth/30
+					//                }
+					// TapHandler {
+					// 	onTapped: Music.stop(Music.selectedPlayer)
+					// }
+					//            }
             }
         }
     }
