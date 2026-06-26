@@ -22,4 +22,9 @@ Rectangle{
     TapHandler {
 		onTapped: DND.toggleDND()
     }
+
+    TapHandler {
+        acceptedButtons: Qt.RightButton
+		onTapped: DND.updateDND()
+    }
 }
