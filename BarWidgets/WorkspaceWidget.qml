@@ -87,7 +87,7 @@ RowLayout {
                 }
 
 				implicitWidth: wsId == Hyprland.focusedWorkspace?.id ?? null ? implicitHeight * 2 : implicitHeight
-                implicitHeight: 10 + Theme.borderWidth
+                implicitHeight: 8 + Theme.borderWidth
                 radius: 5
                 border.width: hasWs(wsId) ? 0 : Theme.borderWidth
                 border.color: Theme.secondaryBackgroundColor
