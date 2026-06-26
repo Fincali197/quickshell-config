@@ -39,4 +39,12 @@ Singleton {
 	Component.onCompleted: {
 		updateDND()
 	}
+
+    IpcHandler {
+        target: "dnd"
+
+        function updateDND(): void {
+			root.updateDND()
+        }
+    }
 }
