@@ -5,3 +5,4 @@ singleton Splash 1.0 Splash.qml
 singleton HyprlandXKB 1.0 HyprlandXKB.qml
 singleton SideHandler 1.0 SideHandler.qml
 singleton Time 1.0 Time.qml
+singleton DND 1.0 DND.qml

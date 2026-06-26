@@ -50,7 +50,7 @@ PanelWindow {
 
         ThemedRectangle {
 
-            Layout.preferredWidth: clock.implicitWidth + calendar.implicitWidth + Theme.textPadding * 2 + Theme.borderWidth
+            Layout.preferredWidth: clock.implicitWidth + calendar.implicitWidth + dndWidget.implicitWidth + Theme.textPadding * 2 + Theme.borderWidth * 3
             Layout.fillHeight: true
 
             ClockWidget {
@@ -63,7 +63,7 @@ PanelWindow {
             Rectangle {
                 id: timeBorder
                 color: Theme.borderColor
-                width: Theme.borderWidth
+                implicitWidth: Theme.borderWidth
                 implicitHeight: Theme.height
                 anchors.left: clock.right
                 anchors.leftMargin: Theme.textPadding/2
@@ -77,6 +77,23 @@ PanelWindow {
                 anchors.leftMargin: Theme.textPadding/2
                 anchors.verticalCenter: parent.verticalCenter
             }
+
+            Rectangle {
+                id: calendarBorder
+                color: Theme.borderColor
+                implicitWidth: Theme.borderWidth
+                implicitHeight: Theme.height
+                anchors.left: calendar.right
+                anchors.leftMargin: Theme.textPadding/2
+                anchors.verticalCenter: parent.verticalCenter
+            }
+
+			DNDWidget {
+				anchors.left: calendarBorder.right
+				anchors.verticalCenter: parent.verticalCenter
+				id: dndWidget
+			}
+
         }
 
         ThemedRectangle {
