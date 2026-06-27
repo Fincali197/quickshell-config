@@ -92,14 +92,14 @@ PanelWindow {
 
         ThemedRectangle {
 
-            Layout.preferredWidth: workspaceWidget.implicitWidth + Theme.textPadding * 2
+            Layout.preferredWidth: workspaceWidget.implicitWidth + Theme.textPadding
             Layout.fillHeight: true
 
             WorkspaceWidget {
                 id: workspaceWidget
 
                 anchors {
-                    fill: parent
+					centerIn: parent
                     leftMargin: Theme.textPadding / 2
                     rightMargin: Theme.textPadding / 2
                 }

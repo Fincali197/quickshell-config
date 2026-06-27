@@ -29,15 +29,15 @@ RowLayout {
                 onTapped: Hyprland.dispatch("hl.dsp.focus({workspace = " + String(indicatorWrapper.wsId) + " })")
             }
 
-            implicitWidth: childRect.implicitWidth + 4
+            implicitWidth: childRect.implicitWidth + 6
             implicitHeight: 20
-            radius: 8
+            radius: 0
 
             color: "transparent"
 
             Rectangle {
                 id: childRect
-                anchors.centerIn: parent
+				anchors.centerIn: parent
                 property HyprlandWorkspace active: row.hasWs(indicatorWrapper.wsId)
                 property bool hasSomething: active?.toplevels.values.length > 0 ?? false
                 color: {
