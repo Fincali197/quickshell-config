@@ -1,4 +1,3 @@
-// WorkspaceWidget.qml
 import "../Theme"
 import QtQuick
 import Quickshell.Hyprland
@@ -30,7 +29,7 @@ RowLayout {
                 onTapped: Hyprland.dispatch("hl.dsp.focus({workspace = " + String(indicatorWrapper.wsId) + " })")
             }
 
-            implicitWidth: childRect.implicitWidth + 3
+            implicitWidth: childRect.implicitWidth + 4
             implicitHeight: 20
             radius: 8
 
@@ -40,7 +39,7 @@ RowLayout {
                 id: childRect
                 anchors.centerIn: parent
                 property HyprlandWorkspace active: row.hasWs(indicatorWrapper.wsId)
-				property bool hasSomething: active?.toplevels.values.length > 0 ?? false
+                property bool hasSomething: active?.toplevels.values.length > 0 ?? false
                 color: {
                     if (hasSomething) {
                         return Theme.secondaryColor;
@@ -50,7 +49,7 @@ RowLayout {
                 }
 
                 implicitWidth: indicatorWrapper.wsId == Hyprland.focusedWorkspace?.id ?? null ? implicitHeight * 2 : implicitHeight
-                implicitHeight: 8 + Theme.borderWidth
+                implicitHeight: 10 + Theme.borderWidth
                 radius: 5
                 border.width: hasSomething ? 0 : Theme.borderWidth
                 border.color: Theme.secondaryBackgroundColor

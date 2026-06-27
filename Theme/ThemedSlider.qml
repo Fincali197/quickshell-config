@@ -1,4 +1,3 @@
-// ThemedSlider.qml
 import QtQuick
 import QtQuick.Controls.Basic
 
@@ -10,7 +9,7 @@ Slider {
 
     property int sliderWidth
 
-	property bool roundedHandle: false
+    property bool roundedHandle: false
 
     background: Rectangle {
         x: control.leftPadding
@@ -37,9 +36,9 @@ Slider {
         implicitHeight: roundedHandle ? 15 : 20
         radius: roundedHandle ? 15 : 2
         color: roundedHandle ? Theme.backgroundColor : Theme.secondaryColor
-		border {
-			width: roundedHandle ? 1 : 0
-			color: Theme.borderColor
-		}
+        border {
+            width: roundedHandle ? 1 : 0
+            color: Theme.borderColor
+        }
     }
 }

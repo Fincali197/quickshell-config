@@ -1,5 +1,3 @@
-// DNDWidget.qml
-
 import "../Theme"
 import "../Singletons"
 import QtQuick

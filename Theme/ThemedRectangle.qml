@@ -1,4 +1,3 @@
-// ThemedRectangle.qml
 import QtQuick
 
 Rectangle {

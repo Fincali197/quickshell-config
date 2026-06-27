@@ -1,4 +1,3 @@
-// SidePanel.qml
 import "../Theme"
 import "../Singletons"
 import QtQuick
@@ -15,7 +14,7 @@ PanelWindow {
 
     exclusionMode: ExclusionMode.Ignore
     implicitWidth: Theme.dockWidth
-    color: "transparent"          // Invisible where mainContainer isn't active
+    color: "transparent"
 
     // This property tells the compositor to only capture clicks inside mainContainer
     mask: Region {
@@ -24,7 +23,6 @@ PanelWindow {
         width: mainContainer.width
         height: mainContainer.height
     }
-
 
     ThemedRectangle {
         id: mainContainer
@@ -37,7 +35,7 @@ PanelWindow {
             bottom: parent.bottom
             bottomMargin: Theme.bottomMargin
         }
-        
+
         Loader {
             id: panelLoader
             source: SideHandler.panelOpen ? "PanelContent.qml" : "../BarWidgets/Dock.qml"
@@ -48,13 +46,13 @@ PanelWindow {
         color: "transparent"
         TapHandler {
             onTapped: {
-                SideHandler.panelOpen = !SideHandler.panelOpen
+                SideHandler.panelOpen = !SideHandler.panelOpen;
             }
         }
         implicitHeight: Theme.height
         implicitWidth: Theme.height
-		anchors.left: mainContainer.left
-		anchors.bottom: mainContainer.bottom
+        anchors.left: mainContainer.left
+        anchors.bottom: mainContainer.bottom
 
         ThemedText {
             anchors.centerIn: parent

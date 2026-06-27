@@ -1,4 +1,3 @@
-// Dock.qml
 import QtQuick
 import QtQuick.Layouts
 import "../Theme"
@@ -9,25 +8,9 @@ RowLayout {
     spacing: 0
     width: Theme.dockWidth
     implicitHeight: Theme.height
-    // Rectangle {
-    //     color: "transparent"
-    //     TapHandler {
-    //         onTapped: {
-    //             SideHandler.panelOpen = !SideHandler.panelOpen
-    //         }
-    //     }
-    //     implicitHeight: Theme.height
-    //     Layout.preferredWidth: 30
-    //     Layout.fillHeight: true
-    //
-    //     ThemedText {
-    //         anchors.centerIn: parent
-    //         text: SideHandler.panelOpen ? "" : ""
-    //     }
-    // }
-	Item {
-		Layout.preferredWidth: 30
-	}
+    Item {
+        Layout.preferredWidth: 30
+    }
 
     Rectangle {
         color: "transparent"
@@ -42,10 +25,10 @@ RowLayout {
 
             elide: Text.ElideRight
 
-            width: Math.min(parent.width, Theme.dockWidth*10/12)
+            width: Math.min(parent.width, Theme.dockWidth * 10 / 12)
 
             horizontalAlignment: Text.AlignHCenter
-			verticalAlignment: Text.AlignVCenter
+            verticalAlignment: Text.AlignVCenter
         }
     }
 

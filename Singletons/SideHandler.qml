@@ -1,4 +1,3 @@
-// SideHandler.qml
 pragma Singleton
 
 import Quickshell
@@ -7,12 +6,12 @@ import QtQuick
 
 Singleton {
     id: root
-    
+
     property alias panelOpen: persist.panelOpen
 
     PersistentProperties {
         id: persist
-		reloadableId: "sideHandler"
+        reloadableId: "sideHandler"
         property bool panelOpen: false
     }
 
@@ -20,7 +19,7 @@ Singleton {
         target: "sidePanel"
 
         function togglePanel(): void {
-            root.panelOpen = !root.panelOpen
+            root.panelOpen = !root.panelOpen;
         }
     }
 }

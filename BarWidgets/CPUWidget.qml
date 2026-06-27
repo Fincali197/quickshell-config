@@ -1,11 +1,9 @@
-// CPUWidget.qml
 import "../Singletons"
 import "../Theme"
 import QtQuick.Shapes
 import QtQuick
 
-Rectangle{
-
+Rectangle {
     id: root
 
     color: "transparent"
@@ -14,9 +12,9 @@ Rectangle{
     implicitHeight: Theme.height
 
     CircularProgress {
-        radius: Theme.height/3
-        centerX: root.width/2
-        centerY: root.height/2
+        radius: Theme.height / 3
+        centerX: root.width / 2
+        centerY: root.height / 2
         startAngle: 270
         value: ResourceUsage.cpuUsage
         strokeWidth: 3
@@ -40,8 +38,8 @@ Rectangle{
             capStyle: ShapePath.FlatCap
 
             PathAngleArc {
-                centerX: root.width/2
-                centerY: root.height/2
+                centerX: root.width / 2
+                centerY: root.height / 2
 
                 radiusX: Theme.fontSize * 11 / 24
                 radiusY: Theme.fontSize * 11 / 24

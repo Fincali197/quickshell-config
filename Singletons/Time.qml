@@ -1,4 +1,3 @@
-// Time.qml
 pragma Singleton
 
 import Quickshell
@@ -8,13 +7,13 @@ Singleton {
     id: root
 
     readonly property string time: {
-        Qt.formatDateTime(clock.date, "hh:mm")
+        Qt.formatDateTime(clock.date, "hh:mm");
     }
 
     readonly property string date: {
-        Qt.formatDateTime(clock.date, "dd.MM.yyyy")
+        Qt.formatDateTime(clock.date, "dd.MM.yyyy");
     }
-    
+
     SystemClock {
         id: clock
         precision: SystemClock.Seconds

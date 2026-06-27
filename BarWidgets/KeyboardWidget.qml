@@ -1,8 +1,6 @@
-// KeyboardWidget.qml
 import "../Theme"
 import "../Singletons"
 import QtQuick
-import Quickshell.Hyprland
 
 ThemedText {
     id: myText

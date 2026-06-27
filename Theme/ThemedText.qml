@@ -1,4 +1,3 @@
-// ThemedText.qml
 import QtQuick
 
 Text {

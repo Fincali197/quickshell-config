@@ -13,7 +13,6 @@ Shape {
     property string color
     property string backgroundColor
 
-    // anchors.fill: parent
     preferredRendererType: Shape.CurveRenderer
     ShapePath {
         strokeWidth: shape.strokeWidth
@@ -46,7 +45,7 @@ Shape {
             radiusY: shape.radius
 
             startAngle: shape.startAngle
-            sweepAngle: 360*shape.value
+            sweepAngle: 360 * shape.value
         }
     }
 }

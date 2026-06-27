@@ -4,6 +4,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
+
 // import qs.modules.common
 
 /**
@@ -62,7 +63,7 @@ Singleton {
                         root.currentLayoutCode = complexLayout;
                         return true;
                     }
-                    
+
                     return false;
                 });
                 // console.log("[HyprlandXkb] Found line:", foundLine);
@@ -102,7 +103,8 @@ Singleton {
                 }
 
                 // If there's only one layout, the updated layout is always the same
-                if (root.layoutCodes.length <= 1) return;
+                if (root.layoutCodes.length <= 1)
+                    return;
 
                 // Update when layout might have changed
                 const dataString = event.data;

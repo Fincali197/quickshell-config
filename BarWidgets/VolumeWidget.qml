@@ -1,10 +1,7 @@
-// VolumeWidget.qml
 import "../Theme"
 import "../Singletons"
 import QtQuick
-import Quickshell.Services.Pipewire
 import QtQuick.Layouts
-import QtQuick.Controls.Basic
 
 RowLayout {
     id: root

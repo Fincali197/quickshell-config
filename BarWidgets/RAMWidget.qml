@@ -1,10 +1,8 @@
-// RAMWidget.qml
 import "../Singletons"
 import "../Theme"
-import QtQuick.Shapes
 import QtQuick
 
-Rectangle{
+Rectangle {
 
     color: "transparent"
 
@@ -12,9 +10,9 @@ Rectangle{
     implicitHeight: Theme.height
 
     CircularProgress {
-        radius: Theme.height/3
-        centerX: parent.width/2
-        centerY: parent.height/2
+        radius: Theme.height / 3
+        centerX: parent.width / 2
+        centerY: parent.height / 2
         startAngle: 270
         value: ResourceUsage.memoryUsage
         strokeWidth: 3
